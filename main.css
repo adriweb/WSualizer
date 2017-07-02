@@ -2,3 +2,28 @@
     margin-bottom: 19px;
 }
 
+#output td:first-of-type {
+    width: 25%;
+}
+#output td:last-of-type {
+    width: 60%;
+}
+
+#output td pre {
+    margin: 0;
+    padding: 5px;
+}
+
+#output tr.type-SENT td, #output tr.type-SENT td pre {
+    color: blue !important;
+}
+#output tr.type-SENT td:first-of-type {
+    color: black !important;
+}
+
+#output tr.type-RECEIVED td, #output tr.type-RECEIVED td pre {
+    color: green !important;
+}
+#output tr.type-RECEIVED td:first-of-type {
+    color: black !important;
+}

@@ -1,42 +1,47 @@
+/* WebSocket stuff */
 const wsUri = "ws://localhost:8000";
 let socket;
+let doSend;
 
-$(function() {
-    const output = document.getElementById("output");
+/* Objects/Data stuff */
+const objects = {};
+
+/* Action handlers */
+const outputTbody = $("#output tbody");
+$("#sendMsg").on("click",  () => { let what; if ((what = $("#textbox").val()).length) { socket.send(what); } });
+$("#clearMsg").on("click", () => { $("#textbox").val(""); });
+$("#clearLog").on("click", () => { outputTbody.empty(); });
+
+/* Let's go */
+$(function()
+{
+    function writeToScreen(message, type)
+    {
+        outputTbody.append(`<tr class="type-${type}"><td>${new Date().toISOString().replace(/[ZT]/g, ' ')}</td>
+                                                     <td>${type}</td>
+                                                     <td><pre>${message}</pre></td></tr>`);
+    }
 
     function setStatus(msg, color)
     {
         $("#ws_status").html(`<span style="color: ${color};"><b>${msg}</b></span>`);
     }
 
-    function testWebSocket()
-    {
-        socket = new WebSocket(wsUri);
-        $("#ws_server").text(wsUri);
-
-        socket.onopen    = (evt) => { setStatus('OK', 'green'); doSend("WebSocket rocks"); };
-        socket.onerror   = (evt) => { setStatus('error', 'red'); };
-        socket.onmessage = (evt) => { onMessage(evt); };
-    }
-
     function onMessage(evt)
     {
-        writeToScreen(`<span style="color: blue;">RESPONSE: ${evt.data}</span>`);
+        writeToScreen(evt.data, "RECEIVED");
     }
 
-    function doSend(message)
+    doSend = function(msg)
     {
-        writeToScreen("SENT: " + message);
-        socket.send(message);
-    }
+        writeToScreen(msg, "SENT");
+        socket.send(msg);
+    };
 
-    function writeToScreen(message)
-    {
-        const pre = document.createElement("p");
-        pre.style.wordWrap = "break-word";
-        pre.innerHTML = message;
-        output.appendChild(pre);
-    }
-
-    testWebSocket();
+    $("#ws_server").text(wsUri);
+    socket = new WebSocket(wsUri);
+    socket.onopen    = (evt) => { setStatus('OK', 'green'); };
+    socket.onerror   = (evt) => { setStatus('error', 'red'); };
+    socket.onclose   = (evt) => { setStatus('closed', 'black'); };
+    socket.onmessage = (msg) => { onMessage(msg); };
 });
