@@ -39,7 +39,11 @@
 <div class="container">
 
     <div class="jumbotron">
-        <div id="display">display</div>
+        <div id="display">
+
+
+
+        </div>
     </div>
 
     <div class="jumbotron">
@@ -58,6 +62,31 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <script src="main.js"></script>
+
+<script>
+    const zb1 = {
+        protocol: "ZigBee",
+        uuid: "abcd-1234-cdef-9876",
+        parent: null,
+        reqname: "JoinNetwork",
+        reqargs: [ 1,2,3 ],
+        tryNum: 1,
+        status: "OK",
+        statusDetails: null,
+    };
+    const zb2 = {
+        protocol: "ZigBee",
+        uuid: "dcba-1234-cdef-9876",
+        parent: "abcd-1234-cdef-9876",
+        reqname: "DeviceRequest",
+        reqargs: [ 4,5,6 ],
+        tryNum: 2,
+        status: "Error",
+        statusDetails: "details here",
+    };
+    addToDisplay(zb1);
+    addToDisplay(zb2);
+</script>
 
 </body>
 </html>

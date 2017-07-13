@@ -27,3 +27,26 @@
 #output tr.type-RECEIVED td:first-of-type {
     color: black !important;
 }
+
+/**************************/
+
+.exec-children {
+    margin-left: 35px;
+    border-left: 1px grey dashed;
+    padding-top: 15px;
+}
+
+.panel.exec-panel {
+    margin-bottom: 0;
+    display: inline-block;
+}
+
+.panel.exec-panel .panel-heading, .panel.exec-panel .panel-body, .panel.exec-panel .panel-footer {
+    padding: 8px 12px;
+}
+
+.exec-children:before {
+    content: "\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0";
+    border-bottom: 1px grey dashed;
+    float: left;
+}
